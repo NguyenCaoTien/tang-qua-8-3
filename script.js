@@ -20,16 +20,15 @@ class Petal {
         this.r = Math.random() * 360;
     }
     update() {
-        this.y += this.s; this.r += 1;
-        this.el.style.top = this.y + 'px';
-        this.el.style.left = this.x + 'px';
-        this.el.style.transform = `rotate(${this.r}deg)`;
-        if (this.y > window.innerHeight) this.reset();
-        const wave = Math.sin(this.y / 30) * 2; 
+        this.y += this.s;
+        this.r += 1;
+        const wave = Math.sin(this.y / 30) * 15; // Tạo hiệu ứng lắc lư
         this.el.style.top = this.y + 'px';
         this.el.style.left = (this.x + wave) + 'px';
         this.el.style.transform = `rotate(${this.r}deg)`;
-        if (this.y > window.innerHeight) this.reset();
+        
+        // Reset nếu rơi quá màn hình hoặc màn hình bị xoay làm thay đổi width/height
+        if (this.y > window.innerHeight || this.x > window.innerWidth) this.reset();
     }
 }
 
@@ -43,10 +42,10 @@ const App = {
             setTimeout(() => {
                 this.env.classList.add('zoom-out');
                 setTimeout(() => {
-                    for(let i=0; i<15; i++) this.petals.push(new Petal());
+                    for(let i=0; i<12; i++) this.petals.push(new Petal());
                     this.animate();
                 }, 800);
-            }, 2300); // Đợi nơ bung và nắp mở xong mới phóng to
+            }, 2300);
         };
     },
     animate: function() {
